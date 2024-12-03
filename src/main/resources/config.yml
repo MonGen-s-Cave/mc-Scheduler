@@ -1,0 +1,23 @@
+Settings:
+  timezone: "Europe/London"
+  prefix: "&#3597FF[Scheduler]"
+  reload_message: "%prefix% &aPlugin files have been successfully reloaded."
+  no_permission_message: "%prefix% &cYou do not have permission to use this command."
+  usage_message: "%prefix% &fUsage: &7/mcscheduler reload"
+
+Events:
+  event1:
+    times:
+      - monday:12:00:00
+      - tuesday:13:00:00
+      - wednesday:14:00:00
+    commands:
+      - "[COMMAND] say Hello"
+      - "[MESSAGE] &#ff1100Test"
+  event2:
+    times:
+      - tuesday:23:00:00
+      - wednesday:18:00:00
+    commands:
+      - "[COMMAND] broadcast Hi"
+      - "[COMMAND] broadcast Event 2"
