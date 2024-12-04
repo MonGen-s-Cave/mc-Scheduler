@@ -1,4 +1,4 @@
-package hu.leonidas.mcScheduler.utils;
+package hu.leonidas.mcScheduler.util;
 
 import java.util.ArrayList;
 import java.util.List;

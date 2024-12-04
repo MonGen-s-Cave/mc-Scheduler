@@ -1,10 +1,10 @@
 package hu.leonidas.mcScheduler.manager;
 
 import hu.leonidas.mcScheduler.Scheduler;
-import hu.leonidas.mcScheduler.utils.Console;
-import hu.leonidas.mcScheduler.utils.DateUtil;
-import hu.leonidas.mcScheduler.utils.EventConfig;
-import hu.leonidas.mcScheduler.utils.ConfigUtil;
+import hu.leonidas.mcScheduler.util.Console;
+import hu.leonidas.mcScheduler.util.DateUtil;
+import hu.leonidas.mcScheduler.util.EventConfig;
+import hu.leonidas.mcScheduler.util.ConfigUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

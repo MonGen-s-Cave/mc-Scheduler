@@ -4,8 +4,8 @@ import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
 import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import dev.triumphteam.cmd.core.message.MessageKey;
 import hu.leonidas.mcScheduler.commands.ReloadCommand;
-import hu.leonidas.mcScheduler.utils.ChatUtil;
-import hu.leonidas.mcScheduler.utils.ConfigUtil;
+import hu.leonidas.mcScheduler.util.ChatUtil;
+import hu.leonidas.mcScheduler.util.ConfigUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 

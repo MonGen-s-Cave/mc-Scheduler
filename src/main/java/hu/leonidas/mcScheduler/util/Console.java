@@ -1,4 +1,4 @@
-package hu.leonidas.mcScheduler.utils;
+package hu.leonidas.mcScheduler.util;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.minimessage.MiniMessage;

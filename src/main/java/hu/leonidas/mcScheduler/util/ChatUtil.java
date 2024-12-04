@@ -1,4 +1,4 @@
-package hu.leonidas.mcScheduler.utils;
+package hu.leonidas.mcScheduler.util;
 
 import org.bukkit.ChatColor;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static hu.leonidas.mcScheduler.utils.ConfigUtil.prefix;
+import static hu.leonidas.mcScheduler.util.ConfigUtil.prefix;
 
 public class ChatUtil {
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");

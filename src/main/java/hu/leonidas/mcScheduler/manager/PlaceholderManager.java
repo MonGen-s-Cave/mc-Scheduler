@@ -2,7 +2,7 @@ package hu.leonidas.mcScheduler.manager;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
-import hu.leonidas.mcScheduler.utils.DateUtil;
+import hu.leonidas.mcScheduler.util.DateUtil;
 
 public class PlaceholderManager extends PlaceholderExpansion {
 

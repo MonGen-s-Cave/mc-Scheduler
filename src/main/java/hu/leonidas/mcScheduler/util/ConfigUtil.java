@@ -1,4 +1,4 @@
-package hu.leonidas.mcScheduler.utils;
+package hu.leonidas.mcScheduler.util;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,7 +18,9 @@ public class ConfigUtil {
     private static File configFile;
 
     public static ZoneId timeZone;
+    public static Boolean updateChecker;
     public static String prefix;
+    public static String updateCheckerMessage;
     public static String reloadMessage;
     public static String permissionMessage;
     public static String argsMessage;
@@ -40,6 +42,8 @@ public class ConfigUtil {
             timeZone = ZoneId.of("Europe/London");
         }
 
+        updateChecker = settings.getBoolean("enable_update_checker", true);
+        updateCheckerMessage = ChatUtil.colorizeHexPrefix(settings.getString("update_notify", "%prefix% &aA new version of the plugin is available! &8(&c%current_version% &f→ &e%latest_version%&8)"));
         prefix = ChatUtil.colorizeHexPrefix(settings.getString("prefix", "&#3597FF[Scheduler]"));
         reloadMessage = settings.getString("reload_message", "%prefix% &aPlugin files have been successfully reloaded.");
         permissionMessage = settings.getString("no_permission_message", "%prefix% &cYou do not have permission to use this command.");

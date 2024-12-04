@@ -4,8 +4,8 @@ import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
-import hu.leonidas.mcScheduler.utils.ChatUtil;
-import hu.leonidas.mcScheduler.utils.ConfigUtil;
+import hu.leonidas.mcScheduler.util.ChatUtil;
+import hu.leonidas.mcScheduler.util.ConfigUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
