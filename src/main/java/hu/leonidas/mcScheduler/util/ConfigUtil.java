@@ -44,7 +44,7 @@ public class ConfigUtil {
 
         updateChecker = settings.getBoolean("enable_update_checker", true);
         updateCheckerMessage = ChatUtil.colorizeHexPrefix(settings.getString("update_notify", "%prefix% &aA new version of the plugin is available! &8(&c%current_version% &f→ &e%latest_version%&8)"));
-        prefix = ChatUtil.colorizeHexPrefix(settings.getString("prefix", "&#3597FF[Scheduler]"));
+        prefix = ChatUtil.colorizeHexPrefix(settings.getString("prefix", "&8[&#56C9CDScheduler&8] »"));
         reloadMessage = settings.getString("reload_message", "%prefix% &aPlugin files have been successfully reloaded.");
         permissionMessage = settings.getString("no_permission_message", "%prefix% &cYou do not have permission to use this command.");
         argsMessage = settings.getString("usage_message", "%prefix% &fUsage: &7/mcscheduler reload");
