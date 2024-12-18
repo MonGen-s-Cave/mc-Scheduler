@@ -12,17 +12,12 @@ import org.bukkit.plugin.Plugin;
 @Command(value = "mcscheduler", alias = {"scheduler", "mc-scheduler"})
 public class ReloadCommand extends BaseCommand {
 
-    private static Plugin plugin;
-
     @SubCommand("reload")
     @Permission("scheduler.admin.reload")
     public void executor(CommandSender sender) {
-        ConfigUtil.load(plugin);
+        ConfigUtil.load();
         sender.sendMessage(ChatUtil.colorizeHex(ConfigUtil.reloadMessage));
     }
 
-    public static void init(Plugin main) {
-        plugin = main;
-    }
 
 }

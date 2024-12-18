@@ -6,12 +6,10 @@ import java.util.List;
 
 public class DateUtil {
 
-    private final ZoneId zoneId = ConfigUtil.timeZone;
-    private final ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
-
     public List<String> getNow() {
+        ConfigUtil.zonedDateTime = ZonedDateTime.now(ConfigUtil.timeZone);
         List<String> timeData = new ArrayList<>();
-        ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(ConfigUtil.timeZone);
         String actuallyDay = zonedDateTime.getDayOfWeek().toString();
         int actuallyHour = zonedDateTime.getHour();
         int actuallyMinute = zonedDateTime.getMinute();
@@ -45,8 +43,9 @@ public class DateUtil {
     }
 
     public String nextRun(String section) {
+        ConfigUtil.zonedDateTime = ZonedDateTime.now(ConfigUtil.timeZone);
         String closestTime = null;
-        DayOfWeek todayDayOfWeek = zonedDateTime.getDayOfWeek();
+        DayOfWeek todayDayOfWeek = ConfigUtil.zonedDateTime.getDayOfWeek();
 
         Duration closestDuration = Duration.ofDays(7);
         EventConfig eventConfig = ConfigUtil.events.get(section);
@@ -64,14 +63,14 @@ public class DateUtil {
 
             int dayDifference = dayOfWeek.getValue() - todayDayOfWeek.getValue();
 
-            if (dayDifference == 0 && eventTime.isBefore(zonedDateTime.toLocalTime())) {
+            if (dayDifference == 0 && eventTime.isBefore(ConfigUtil.zonedDateTime.toLocalTime())) {
                 dayDifference += 7;
             } else if (dayDifference < 0) {
                 dayDifference += 7;
             }
 
-            ZonedDateTime eventDateTime = zonedDateTime.with(eventTime).plusDays(dayDifference);
-            Duration duration = Duration.between(zonedDateTime, eventDateTime);
+            ZonedDateTime eventDateTime = ConfigUtil.zonedDateTime.with(eventTime).plusDays(dayDifference);
+            Duration duration = Duration.between(ConfigUtil.zonedDateTime, eventDateTime);
 
             if (duration.compareTo(closestDuration) < 0) {
                 closestDuration = duration;

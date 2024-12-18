@@ -17,6 +17,8 @@ Events:
     commands:
       - "[COMMAND] say Hello"
       - "[MESSAGE] &#ff1100Test"
+      - "[TITLE] &#ff1100Title"
+      - "[SUBTITLE] &#ff1100Subtitle"
   event2:
     times:
       - tuesday:23:00:00
@@ -24,3 +26,4 @@ Events:
     commands:
       - "[COMMAND] broadcast Hi"
       - "[COMMAND] broadcast Event 2"
+      - "[ACTIONBAR] &#ff1100Event2"

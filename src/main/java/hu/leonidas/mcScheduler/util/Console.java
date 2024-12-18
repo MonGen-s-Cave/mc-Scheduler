@@ -2,7 +2,9 @@ package hu.leonidas.mcScheduler.util;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
@@ -36,6 +38,31 @@ public class Console {
                         msgContent = PlaceholderAPI.setPlaceholders(null, msgContent);
                         msgContent = ChatUtil.colorizeHex(msgContent);
                         server.broadcastMessage(msgContent);
+                    } else if (command.startsWith("[ACTIONBAR]")) {
+                        String msgContent = command.replace("[ACTIONBAR]", "").trim();
+                        msgContent = PlaceholderAPI.setPlaceholders(null, msgContent);
+                        msgContent = ChatUtil.colorizeHex(msgContent);
+                        for (Player player : Bukkit.getOnlinePlayers()) {
+                            player.sendActionBar(msgContent);
+                        }
+                    } else if (command.startsWith("[TITLE]")) {
+                        String msgContent = command.replace("[TITLE]", "").trim();
+                        msgContent = PlaceholderAPI.setPlaceholders(null, msgContent);
+                        msgContent = ChatUtil.colorizeHex(msgContent);
+                        String subtitle = "";
+                        for(String cmd : commands){
+                            if(cmd.startsWith("[SUBTITLE]"))
+                                subtitle = cmd.replace("[SUBTITLE]", "").trim();
+                                subtitle = PlaceholderAPI.setPlaceholders(null, subtitle);
+                                subtitle = ChatUtil.colorizeHex(subtitle);
+                        }
+                            for(Player player : Bukkit.getOnlinePlayers()){
+                                player.sendTitle(msgContent, subtitle, 0, 120, 0);
+                            }
+                            for(Player player : Bukkit.getOnlinePlayers()){
+                                player.sendTitle(msgContent, subtitle, 0, 120, 0);
+                            }
+
                     }
                 } catch (Exception e) {
                     error("Failed to execute command: " + command);

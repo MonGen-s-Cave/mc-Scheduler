@@ -4,6 +4,7 @@ main: hu.leonidas.mcScheduler.Scheduler
 api-version: '1.18'
 softdepend: [PlaceholderAPI]
 authors: [ Leonidas ]
+folia-supported: true
 
 commands:
   mcscheduler:

@@ -1,6 +1,5 @@
 package hu.leonidas.mcScheduler;
 
-import hu.leonidas.mcScheduler.commands.ReloadCommand;
 import hu.leonidas.mcScheduler.manager.CommandManager;
 import hu.leonidas.mcScheduler.manager.PlaceholderManager;
 import hu.leonidas.mcScheduler.manager.SchedulerManager;
@@ -17,7 +16,7 @@ public class Scheduler extends JavaPlugin {
     public void onEnable() {
         ConfigUtil.init(this);
         Console.init(this);
-        ReloadCommand.init(this);
+        SchedulerManager.init(this);
 
         int pluginId = 24068;
         new Metrics(this, pluginId);

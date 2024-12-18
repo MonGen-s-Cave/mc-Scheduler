@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ public class ConfigUtil {
     private static File configFile;
 
     public static ZoneId timeZone;
+    public static ZonedDateTime zonedDateTime;
+
     public static Boolean updateChecker;
     public static String prefix;
     public static String updateCheckerMessage;
@@ -26,7 +29,7 @@ public class ConfigUtil {
     public static String argsMessage;
     public static Map<String, EventConfig> events = new ConcurrentHashMap<>();
 
-    private static void loadValues(Plugin plugin) {
+    private static void loadValues() {
         ConfigurationSection settings = config.getConfigurationSection("Settings");
         if (settings == null) {
             Console.warning("Missing 'Settings' section in the configuration file.");
@@ -37,6 +40,7 @@ public class ConfigUtil {
         String timeZoneString = settings.getString("timezone", "Europe/London").trim();
         try {
             timeZone = ZoneId.of(timeZoneString);
+            zonedDateTime = ZonedDateTime.now(timeZone);
         } catch (Exception e) {
             Console.warning("Invalid timezone in config: " + timeZoneString + ". Falling back to default: Europe/Budapest.");
             timeZone = ZoneId.of("Europe/London");
@@ -80,13 +84,13 @@ public class ConfigUtil {
 
     public static void init(Plugin plugin) {
         createConfig(plugin);
-        load(plugin);
+        load();
     }
 
-    public static void load(Plugin plugin) {
+    public static void load() {
         try {
             config = YamlConfiguration.loadConfiguration(configFile);
-            loadValues(plugin);
+            loadValues();
         } catch (Exception e) {
             Console.warning("Failed to load configuration file: " + e.getMessage());
             e.printStackTrace();

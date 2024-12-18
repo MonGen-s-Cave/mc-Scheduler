@@ -1,10 +1,9 @@
 package hu.leonidas.mcScheduler.manager;
 
-import hu.leonidas.mcScheduler.Scheduler;
+import hu.leonidas.mcScheduler.util.ConfigUtil;
 import hu.leonidas.mcScheduler.util.Console;
 import hu.leonidas.mcScheduler.util.DateUtil;
 import hu.leonidas.mcScheduler.util.EventConfig;
-import hu.leonidas.mcScheduler.util.ConfigUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,7 +15,7 @@ public class SchedulerManager extends JavaPlugin {
     public static void scheduleCommand() {
         DateUtil dateUtil = new DateUtil();
 
-        Bukkit.getScheduler().runTaskTimer(Scheduler.getPlugin(Scheduler.class), new Runnable() {
+        Bukkit.getScheduler().runTaskTimer(hu.leonidas.mcScheduler.Scheduler.getPlugin(hu.leonidas.mcScheduler.Scheduler.class), new Runnable() {
             @Override
             public void run() {
                 List<String> actuallyDate = dateUtil.getNow();
