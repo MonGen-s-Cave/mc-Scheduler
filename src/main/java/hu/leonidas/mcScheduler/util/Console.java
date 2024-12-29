@@ -51,10 +51,11 @@ public class Console {
                         msgContent = ChatUtil.colorizeHex(msgContent);
                         String subtitle = "";
                         for(String cmd : commands){
-                            if(cmd.startsWith("[SUBTITLE]"))
+                            if(cmd.startsWith("[SUBTITLE]")){
                                 subtitle = cmd.replace("[SUBTITLE]", "").trim();
                                 subtitle = PlaceholderAPI.setPlaceholders(null, subtitle);
                                 subtitle = ChatUtil.colorizeHex(subtitle);
+                            }
                         }
                             for(Player player : Bukkit.getOnlinePlayers()){
                                 player.sendTitle(msgContent, subtitle, 0, 120, 0);
