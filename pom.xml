@@ -6,7 +6,7 @@
 
     <groupId>hu.leonidas</groupId>
     <artifactId>mc-Scheduler</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>mc-Scheduler</name>
@@ -36,7 +36,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>hu.kxtsoo.fungun.bstats</shadedPattern>
+                            <shadedPattern>hu.leonidas.mcScheduler.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
