@@ -1,0 +1,7 @@
+hooks:
+  settings:
+    PlaceholderAPI:
+      placeholder_format: "%days%:%hours%:%minutes%:%seconds%"
+      active: "Active"
+
+version: 1

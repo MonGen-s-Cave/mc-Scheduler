@@ -1,8 +1,8 @@
 name: mc-Scheduler
 version: '${project.version}'
-main: hu.leonidas.mcScheduler.Scheduler
+main: com.mongenscave.mcScheduler.Scheduler
 api-version: '1.18'
-softdepend: [PlaceholderAPI]
+depend: [PlaceholderAPI]
 authors: [ Leonidas ]
 folia-supported: true
 

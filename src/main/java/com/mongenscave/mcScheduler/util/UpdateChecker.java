@@ -1,5 +1,6 @@
-package hu.leonidas.mcScheduler.util;
+package com.mongenscave.mcScheduler.util;
 
+import com.mongenscave.mcScheduler.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,12 +26,12 @@ public class UpdateChecker implements Listener {
 
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
 
-            this.latestVersion = fetchLatestVersion();
-            this.isUpToDate = checkIfLatestVersion(currentVersion);
+        this.latestVersion = fetchLatestVersion();
+        this.isUpToDate = checkIfLatestVersion(currentVersion);
 
-            if (latestVersion == null || isUpToDate) return;
+        if (latestVersion == null || isUpToDate) return;
 
-            Bukkit.getConsoleSender().sendMessage(createUpdateMessage());
+        Bukkit.getConsoleSender().sendMessage(createUpdateMessage());
     }
 
     @EventHandler
@@ -42,7 +43,7 @@ public class UpdateChecker implements Listener {
     }
 
     private String createUpdateMessage() {
-        return ChatUtil.colorizeHex(ConfigUtil.updateCheckerMessage.replace("%current_version%", currentVersion).replace("%latest_version%", latestVersion));
+        return ChatUtil.colorizeHex(Scheduler.getInstance().getConfigUtil().getConfig().getString("update_notify").replace("%current_version%", currentVersion).replace("%latest_version%", latestVersion));
     }
 
     @Nullable

@@ -1,13 +1,12 @@
-package hu.leonidas.mcScheduler.util;
+package com.mongenscave.mcScheduler.util;
 
+import com.mongenscave.mcScheduler.Scheduler;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static hu.leonidas.mcScheduler.util.ConfigUtil.prefix;
 
 public class ChatUtil {
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
@@ -29,7 +28,7 @@ public class ChatUtil {
         }
         matcher.appendTail(buffer);
 
-        return ChatColor.translateAlternateColorCodes('&', buffer.toString()).replace("%prefix%", prefix);
+        return colorizeHexPrefix(ChatColor.translateAlternateColorCodes('&', buffer.toString()).replace("%prefix%", Scheduler.getInstance().getConfigUtil().getConfig().getString("Settings.prefix")));
     }
 
     public static String colorizeHexPrefix(String message) {
