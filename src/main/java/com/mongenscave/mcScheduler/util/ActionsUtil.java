@@ -14,7 +14,15 @@ public class ActionsUtil {
             return;
         }
 
+        if (containsActionsTitle(actions) || containsActionsSubTitle(actions)) {
+            executeTitleAndSubtitle(actions);
+        }
+
         for (String action : actions) {
+            if (containsActionTitle(action) || containsActionSubTitle(action)) {
+                continue;
+            }
+
             executeAction(action);
         }
     }
@@ -23,25 +31,19 @@ public class ActionsUtil {
         String startAction = action.split(" ")[0];
         switch (startAction) {
             case "[COMMAND]":
-                    executeCommand(action);
+                executeCommand(action);
                 break;
             case "[MESSAGE]":
-                    executeMessage(action);
-                break;
-            case "[TITLE]":
-                    executeTitle(action);
-                break;
-            case "[SUBTITLE]":
-                    executeSubtitle(action);
+                executeMessage(action);
                 break;
             case "[ACTIONBAR]":
-                    executeActionBar(action);
+                executeActionBar(action);
                 break;
             case "[WEBHOOK]":
-                    executeWebhook(action);
+                executeWebhook(action);
                 break;
             case "[SOUND]":
-                    executeSound(action);
+                executeSound(action);
                 break;
             default:
                 System.out.println("Unknown action: " + action);
@@ -49,54 +51,40 @@ public class ActionsUtil {
     }
 
     private static void executeCommand(String command) {
-        command = command.replace("[COMMAND]", "").trim();
-        command = PlaceholderAPI.setPlaceholders(null, command);
-
+        command = PlaceholderAPI.setPlaceholders(null, command.replace("[COMMAND]", ""));
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
     }
 
     private static void executeMessage(String message) {
-        message = message.replace("[MESSAGE]", "").trim();
-        message = ChatUtil.colorizeHex(message);
-        message = PlaceholderAPI.setPlaceholders(null, message);
-
-        for(Player player : Bukkit.getOnlinePlayers()) {
+        message = formatMessage(message.replace("[MESSAGE]", ""));
+        for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(message);
         }
     }
-    private static void executeTitle(String title) {
-        title = title.replace("[TITLE]", "").trim();
-        title = ChatUtil.colorizeHex(title);
-        title = PlaceholderAPI.setPlaceholders(null, title);
 
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            player.sendTitle(title, "", 0, 120, 0);
-        }
-    }
+    private static void executeTitleAndSubtitle(List<String> actions) {
+        String title = getActionTitle(actions);
+        String subtitle = getActionSubTitle(actions);
 
-    private static void executeSubtitle(String subtitle) {
-        subtitle = subtitle.replace("[SUBTITLE]", "").trim();
-        subtitle = ChatUtil.colorizeHex(subtitle);
-        subtitle = PlaceholderAPI.setPlaceholders(null, subtitle);
+        if (title == null && subtitle == null) return;
 
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            player.sendTitle("", subtitle, 0, 120, 0);
+        title = formatMessage(title != null ? title : "");
+        subtitle = formatMessage(subtitle != null ? subtitle : "");
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendTitle(title, subtitle, 0, 120, 0);
         }
     }
 
     private static void executeActionBar(String message) {
-        message = message.replace("[ACTIONBAR]", "").trim();
-        message = ChatUtil.colorizeHex(message);
-        message = PlaceholderAPI.setPlaceholders(null, message);
-
-        for(Player player : Bukkit.getOnlinePlayers()) {
+        message = formatMessage(message.replace("[ACTIONBAR]", ""));
+        for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendActionBar(message);
         }
     }
 
     private static void executeWebhook(String webhook) {
         webhook = webhook.replace("[WEBHOOK]", "").trim();
-
         WebhookUtil.sendWebhook(webhook);
     }
 
@@ -104,7 +92,6 @@ public class ActionsUtil {
         sound = sound.replace("[SOUND]", "").trim();
 
         Sound mcSound;
-
         try {
             mcSound = Sound.valueOf(sound.toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -115,5 +102,41 @@ public class ActionsUtil {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.playSound(player.getLocation(), mcSound, 1.0f, 1.0f);
         }
+    }
+
+    private static String formatMessage(String raw) {
+        return ChatUtil.colorizeHex(PlaceholderAPI.setPlaceholders(null, raw.trim()));
+    }
+
+    private static boolean containsActionTitle(String action) {
+        return action.startsWith("[TITLE]");
+    }
+
+    private static boolean containsActionSubTitle(String action) {
+        return action.startsWith("[SUBTITLE]");
+    }
+
+    private static boolean containsActionsTitle(List<String> actions) {
+        return actions.stream().anyMatch(a -> a.startsWith("[TITLE]"));
+    }
+
+    private static boolean containsActionsSubTitle(List<String> actions) {
+        return actions.stream().anyMatch(a -> a.startsWith("[SUBTITLE]"));
+    }
+
+    private static String getActionTitle(List<String> actions) {
+        return actions.stream()
+                .filter(a -> a.startsWith("[TITLE]"))
+                .findFirst()
+                .map(a -> a.replace("[TITLE]", "").trim())
+                .orElse(null);
+    }
+
+    private static String getActionSubTitle(List<String> actions) {
+        return actions.stream()
+                .filter(a -> a.startsWith("[SUBTITLE]"))
+                .findFirst()
+                .map(a -> a.replace("[SUBTITLE]", "").trim())
+                .orElse(null);
     }
 }
