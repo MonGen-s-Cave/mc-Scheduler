@@ -1,0 +1,35 @@
+Settings:
+  timezone: "Europe/London"
+  prefix: "&8[&#56C9CDScheduler&8] »"
+  enable_update_checker: true
+  update_notify: "%prefix% &aA new version of the plugin is available! &8(&c%current_version% &f→ &e%latest_version%&8)"
+  reload_message: "%prefix% &aPlugin files have been successfully reloaded."
+  no_permission_message: "%prefix% &cYou don't have permission to use this command."
+  usage_message: "%prefix% &fUsage: &7/mcscheduler reload"
+
+# Times documentation: https://crontab.guru/
+Events:
+  event1:
+    times:
+      - "0 12 * * 1" # monday 12:00
+      - "0 13 * * 2" # tuesday 13:00
+      - "0 14 * * 3" # wednesday 14:00
+    required_players: 5
+    no_enough_player_commands:
+      - "[MESSAGE] &#ff1100There aren't enough players on the server to execute the event."
+    commands:
+      - "[COMMAND] say Hello"
+      - "[MESSAGE] &#56C9CDTest"
+      - "[TITLE] &#56C9CDTitle"
+      - '[SOUND] enchant.thorns.hit'
+  event2:
+    times:
+      - "0 23 * * 2"
+      - "0 18 * * 3"
+    commands:
+      - "[COMMAND] broadcast Hi"
+      - "[COMMAND] broadcast Event 2"
+      - "[ACTIONBAR] &#56C9CDEvent2"
+      - "[WEBHOOK] example"
+
+version: "1.0"

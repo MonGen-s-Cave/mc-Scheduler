@@ -1,0 +1,12 @@
+webhooks:
+  #Placeholders: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders
+  example:
+    webhook-url: ""
+    embed:
+      title: ":test_tube: Test Webhook"
+      description: "**The server details:**\n> Online: **%server_online%**\n> Next run: **%scheduler_nextrun_event2%**"
+      color: "#56C9CD"
+      footer: "MonGen's Cave - mc-Scheduler"
+      timestamp: true
+
+version: "1.0"

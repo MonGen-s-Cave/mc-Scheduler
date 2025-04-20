@@ -1,0 +1,17 @@
+name: mc-Scheduler
+version: '${project.version}'
+main: com.mongenscave.mcScheduler.Scheduler
+api-version: '1.18'
+depend: [PlaceholderAPI]
+authors: [ Leonidas ]
+folia-supported: true
+
+commands:
+  mcscheduler:
+    alias: ['scheduler', 'mc-scheduler']
+    description: 'Use Scheduler commands'
+    usage: /mcscheduler <args>
+    subcommands:
+      reload:
+        description: 'Reload the plugin files.'
+        usage: '/mcscheduler reload'
