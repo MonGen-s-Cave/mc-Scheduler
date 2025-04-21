@@ -10,6 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ConfigUtil {
@@ -18,12 +20,14 @@ public class ConfigUtil {
     private YamlDocument config;
     private YamlDocument webhooks;
     private YamlDocument hooks;
+    private final Map<String, YamlDocument> guisMap = new HashMap<>();
 
     public ConfigUtil(JavaPlugin plugin) {
         this.plugin = plugin;
         setupConfig();
         setupWebhooks();
         setupHooks();
+        loadGuis();
     }
 
     public void setupConfig() {
@@ -86,6 +90,43 @@ public class ConfigUtil {
         }
     }
 
+    public void loadGuis() {
+        File guisFolder = new File(plugin.getDataFolder(), "guis");
+        if (!guisFolder.exists()) {
+            guisFolder.mkdirs();
+        }
+
+        guisMap.clear();
+
+        String[] guiFiles = {"commands.yml", "editor.yml", "events.yml", "times.yml"};
+
+        for (String guiFileName : guiFiles) {
+            File effectFile = new File(guisFolder, guiFileName);
+            if (!effectFile.exists()) {
+                plugin.saveResource("guis/" + guiFileName, false);
+            }
+        }
+
+        File[] loadedGuiFiles = guisFolder.listFiles((dir, name) -> name.endsWith(".yml"));
+        if (loadedGuiFiles != null && loadedGuiFiles.length > 0) {
+            for (File guiFile : loadedGuiFiles) {
+                try {
+                    String guiName = guiFile.getName().replace(".yml", "");
+                    YamlDocument guiDocument = YamlDocument.create(guiFile,
+                            GeneralSettings.builder().setUseDefaults(false).build(),
+                            LoaderSettings.DEFAULT, DumperSettings.DEFAULT,
+                            UpdaterSettings.builder().setVersioning(new BasicVersioning("version")).build());
+
+                    guisMap.put(guiName, guiDocument);
+                } catch (IOException ex) {
+                    plugin.getLogger().severe("Error loading gui file: " + guiFile.getName() + " - " + ex.getMessage());
+                }
+            }
+        } else {
+            plugin.getLogger().warning("No gui files found in the guis folder.");
+        }
+    }
+
     public YamlDocument getConfig() {
         return config;
     }
@@ -98,12 +139,16 @@ public class ConfigUtil {
         return hooks;
     }
 
+    public YamlDocument getGui(String guiName) {
+        return guisMap.get(guiName);
+    }
 
     public void reloadConfig() {
         try {
             config.reload();
             webhooks.reload();
             hooks.reload();
+            loadGuis();
         } catch (IOException ex) {
             plugin.getLogger().severe("Error reloading configuration files: " + ex.getMessage());
         }

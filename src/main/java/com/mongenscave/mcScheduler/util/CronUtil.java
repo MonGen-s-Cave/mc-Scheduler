@@ -84,6 +84,32 @@ public class CronUtil {
         return times;
     }
 
+    public static List<String> getEventCommands(String event) {
+        List<String> commands = new ArrayList<>();
+
+        Section eventsSection = config.getSection("Events");
+        if (eventsSection == null) {
+            return List.of();
+        }
+
+        Section eventSection = eventsSection.getSection(event);
+        if (eventSection == null) {
+            return List.of();
+        }
+
+        List<?> commandList = eventSection.getList("commands");
+        if (commandList == null) {
+            return List.of();
+        }
+
+        for (Object obj : commandList) {
+            if (obj != null) {
+                commands.add(obj.toString());
+            }
+        }
+
+        return commands;
+    }
 
     private static String formatDuration(long millis) {
         long seconds = millis / 1000;
@@ -102,4 +128,32 @@ public class CronUtil {
                 .replace("%seconds%", String.valueOf(seconds));
     }
 
+    public static String getNextRunFromCron(String cronExpression) {
+        try {
+            Predictor predictor = new Predictor(cronExpression);
+            predictor.setTimeZone(TimeZone.getTimeZone(config.getString("Settings.timezone")));
+            long nextTime = predictor.nextMatchingTime();
+
+            long diff = nextTime - System.currentTimeMillis();
+            if (diff <= 0) {
+                return plugin.getConfigUtil().getHooks().getString("hooks.settings.PlaceholderAPI.active");
+            }
+
+            return formatDuration(diff);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "---!";
+        }
+    }
+
+    public static List<String> getEvents() {
+        List<Section> events = CronUtil.GetEvents();
+        List<String> eventNames = new ArrayList<>();
+
+        for(Section event : events) {
+            eventNames.add(event.getNameAsString());
+        }
+
+        return eventNames;
+    }
 }

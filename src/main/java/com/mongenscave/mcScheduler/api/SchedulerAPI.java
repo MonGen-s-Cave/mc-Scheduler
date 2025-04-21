@@ -5,7 +5,7 @@ import com.mongenscave.mcScheduler.Scheduler;
 public class SchedulerAPI {
     private static SchedulerAPI instance;
 
-    private SchedulerAPI() {}
+    public SchedulerAPI() {}
 
     public static SchedulerAPI getInstace() {
             if (instance == null) {

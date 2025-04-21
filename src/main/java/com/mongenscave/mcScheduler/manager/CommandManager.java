@@ -1,6 +1,7 @@
 package com.mongenscave.mcScheduler.manager;
 
 import com.mongenscave.mcScheduler.Scheduler;
+import com.mongenscave.mcScheduler.command.EditCommand;
 import com.mongenscave.mcScheduler.command.ReloadCommand;
 import com.mongenscave.mcScheduler.util.ChatUtil;
 import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
@@ -20,6 +21,7 @@ public class CommandManager {
 
     public void registerCommands() {
         commandManager.registerCommand(new ReloadCommand());
+        commandManager.registerCommand(new EditCommand());
     }
 
     public void registerMessages() {

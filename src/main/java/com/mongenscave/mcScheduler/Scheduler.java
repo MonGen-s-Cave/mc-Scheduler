@@ -1,6 +1,8 @@
 package com.mongenscave.mcScheduler;
 
+import com.mongenscave.mcScheduler.api.SchedulerAPI;
 import com.mongenscave.mcScheduler.hook.HookManager;
+import com.mongenscave.mcScheduler.listener.*;
 import com.mongenscave.mcScheduler.manager.CommandManager;
 import com.mongenscave.mcScheduler.util.ConfigUtil;
 import com.mongenscave.mcScheduler.util.SchedulerUtil;
@@ -30,6 +32,14 @@ public final class Scheduler extends JavaPlugin {
 
         schedulerUtil = new SchedulerUtil(this);
         schedulerUtil.start();
+
+        SchedulerAPI.initialize(new SchedulerAPI());
+
+        getServer().getPluginManager().registerEvents(new EventsCreateListener(), this);
+        getServer().getPluginManager().registerEvents(new TimeCreateListener(), this);
+        getServer().getPluginManager().registerEvents(new TimeEditListener(), this);
+        getServer().getPluginManager().registerEvents(new CommandCreateListener(), this);
+        getServer().getPluginManager().registerEvents(new CommandEditListener(), this);
 
         String main = "\u001B[38;5;87m";
         String yellow = "\u001B[33m";

@@ -8,10 +8,13 @@ folia-supported: true
 
 commands:
   mcscheduler:
-    alias: ['scheduler', 'mc-scheduler']
+    alias: ['mcscheduler', 'scheduler', 'mc-scheduler']
     description: 'Use Scheduler commands'
     usage: /mcscheduler <args>
     subcommands:
       reload:
         description: 'Reload the plugin files.'
         usage: '/mcscheduler reload'
+      editor:
+        description: 'Edit the plugin events.'
+        usage: '/mcscheduler editor'

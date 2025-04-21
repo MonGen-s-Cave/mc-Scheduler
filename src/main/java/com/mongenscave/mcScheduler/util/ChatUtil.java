@@ -28,7 +28,7 @@ public class ChatUtil {
         }
         matcher.appendTail(buffer);
 
-        return ChatColor.translateAlternateColorCodes('&', buffer.toString()).replace("%prefix%", Scheduler.getInstance().getConfigUtil().getConfig().getString("Settings.prefix"));
+        return ChatColor.translateAlternateColorCodes('&', buffer.toString()).replace("%prefix%", colorizeHexPrefix(Scheduler.getInstance().getConfigUtil().getConfig().getString("Settings.prefix")));
     }
 
     public static String colorizeHexPrefix(String message) {
@@ -62,5 +62,4 @@ public class ChatUtil {
         }
         return coloredMessages;
     }
-
 }
